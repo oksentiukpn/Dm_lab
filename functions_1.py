@@ -49,8 +49,8 @@ def relation_breakdown(matrix: list) -> list:
                 classes[0].append(j_index)
         for m, n in enumerate(classes):
             for o, p in enumerate(n):
-                print(f"{classes}")
-                print(f'{n=}, {p=}, {index=}, {j_index=}')
+                #print(f"{classes}")
+                #print(f'{n=}, {p=}, {index=}, {j_index=}')
                 if index == p or j_index == p:
                     break
             else:
@@ -64,12 +64,14 @@ def relation_breakdown(matrix: list) -> list:
             if element == 1:
                 add_to_classes(index, j_index, row, element)
 
-    print(classes)
+    #print(classes)
 
-matr = [
-    [1, 1, 0],
-    [1, 1, 0],
-    [0, 0, 1]
-]
-relation_breakdown(matr)
+# matr = [
+#     [1, 1, 0],
+#     [1, 1, 0],
+#     [0, 0, 1]
+# ]
 ##############################################################
+if __name__ == "__main__":
+    #relation_breakdown(matr)
+    pass
