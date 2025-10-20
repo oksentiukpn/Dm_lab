@@ -34,3 +34,42 @@ def write_file(matrix: list) -> bool:
         return False
     return True
 ##############################################################
+
+##############################################################
+#
+def relation_breakdown(matrix: list) -> list:
+    '''
+    a
+    '''
+    classes = []
+    def add_to_classes(index: int, j_index: int, row: list, element: int):
+        if classes == []:
+            classes.append([index])
+            if index != j_index:
+                classes[0].append(j_index)
+        for m, n in enumerate(classes):
+            for o, p in enumerate(n):
+                print(f"{classes}")
+                print(f'{n=}, {p=}, {index=}, {j_index=}')
+                if index == p or j_index == p:
+                    break
+            else:
+                classes.append([index])
+                if index != j_index:
+                    classes[m].append(j_index)
+
+
+    for index, row in enumerate(matrix):
+        for j_index, element in enumerate(row):
+            if element == 1:
+                add_to_classes(index, j_index, row, element)
+
+    print(classes)
+
+matr = [
+    [1, 1, 0],
+    [1, 1, 0],
+    [0, 0, 1]
+]
+relation_breakdown(matr)
+##############################################################
