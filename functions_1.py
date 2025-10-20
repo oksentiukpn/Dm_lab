@@ -12,11 +12,7 @@ def read_file(file: str) -> list | None:
     '''
     try:
         with open(file, 'r', encoding='utf-8') as file:
-            matrix = []
-            for line in file:
-                matrix.append(line.strip("\n"))
-            for i, l in enumerate(matrix):
-                matrix[i] = list(l)
+            matrix = [list(line.strip('\n')) for line in file]
             return matrix
     except FileNotFoundError:
         return None
@@ -38,3 +34,4 @@ def write_file(matrix: list) -> bool:
         return False
     return True
 ##############################################################
+print(read_file('file.csv'))
