@@ -34,4 +34,3 @@ def write_file(matrix: list) -> bool:
         return False
     return True
 ##############################################################
-print(read_file('file.csv'))
