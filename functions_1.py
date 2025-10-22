@@ -113,5 +113,6 @@ def relation_breakdown(matrix: list) -> list:
 
 #############################################################
 if __name__ == "__main__":
-    import doctest
-    print(doctest.testmod())
+    # import doctest
+    # print(doctest.testmod())
+    pass
