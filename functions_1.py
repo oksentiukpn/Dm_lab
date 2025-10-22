@@ -112,7 +112,81 @@ def relation_breakdown(matrix: list) -> list:
     return classes
 
 #############################################################
+# 5
+def is_transitive(matrix: list) -> bool:
+    '''
+    Checks if relation is transitive
+
+    A relation R is transitive if for all i, j, k:
+    (i,j) ∈ R and (j,k) ∈ R ⇒ (i,k) ∈ R
+
+    :param matrix: list, relation matrix
+    :return: bool, True or False
+    >>> M = [
+    ...     [1, 1, 0],
+    ...     [0, 1, 1],
+    ...     [0, 0, 1]
+    ... ]
+    >>> is_transitive(M)
+    False
+
+    >>> M2 = [
+    ...     [1, 1, 1],
+    ...     [0, 1, 1],
+    ...     [0, 0, 1]
+    ... ]
+    >>> is_transitive(M2)
+    True
+
+    >>> M3 = [
+    ...     [1, 0, 0],
+    ...     [0, 1, 0],
+    ...     [0, 0, 1]
+    ... ]
+    >>> is_transitive(M3)
+    True
+
+    >>> M_big = [
+    ... [1,1,1,0,0,0,0,0,0,0],
+    ... [0,1,1,1,0,0,0,0,0,0],
+    ... [0,0,1,1,1,0,0,0,0,0],
+    ... [0,0,0,1,1,1,0,0,0,0],
+    ... [0,0,0,0,1,1,1,0,0,0],
+    ... [0,0,0,0,0,1,1,1,0,0],
+    ... [0,0,0,0,0,0,1,1,1,0],
+    ... [0,0,0,0,0,0,0,1,1,1],
+    ... [0,0,0,0,0,0,0,0,1,1],
+    ... [0,0,0,0,0,0,0,0,0,1]
+    ... ]
+    >>> is_transitive(M_big)
+    False
+
+    >>> M_big_not = [
+    ... [1,1,0,0,0,0,0,0,0,0],
+    ... [0,1,1,0,0,0,0,0,0,0],
+    ... [0,0,1,1,0,0,0,0,0,0],
+    ... [0,0,0,1,0,0,0,0,0,0],
+    ... [0,0,0,0,1,1,0,0,0,0],
+    ... [0,0,0,0,0,1,0,1,0,0],
+    ... [0,0,0,0,0,0,1,0,0,0],
+    ... [0,0,0,0,0,0,0,1,1,0],
+    ... [0,0,0,0,0,0,0,0,1,1],
+    ... [0,0,0,0,0,0,0,0,0,1]
+    ... ]
+    >>> is_transitive(M_big_not)
+    False
+    '''
+    for index, row in enumerate(matrix):
+        for j_index, value in enumerate(row):
+            if value == 1:
+                for k in range(len(matrix)):
+                    if matrix[j_index][k] == 1:
+                        if matrix[index][k] != 1:
+                            return False
+    return True
+
+
+#############################################################
 if __name__ == "__main__":
-    # import doctest
-    # print(doctest.testmod())
-    pass
+    import doctest
+    print(doctest.testmod())
