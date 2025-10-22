@@ -83,8 +83,8 @@ def relation_breakdown(matrix: list) -> list:
     [[0, 1], [2, 3, 4], [5, 6], [7, 8, 9]]
     '''
     classes = []
-    def add_to_classes(index: int, j_index: int, row: list, element: int):
-        if classes == []:
+    def add_to_classes(index: int, j_index: int):
+        if not classes:
             classes.append([index])
         for i, m in enumerate(classes): # check for existance in classes
             if index in m and j_index in m:
@@ -108,11 +108,10 @@ def relation_breakdown(matrix: list) -> list:
     for index, row in enumerate(matrix):
         for j_index, element in enumerate(row):
             if element == 1:
-                add_to_classes(index, j_index, row, element)
+                add_to_classes(index, j_index)
     return classes
 
 #############################################################
 if __name__ == "__main__":
     import doctest
     print(doctest.testmod())
-    pass
