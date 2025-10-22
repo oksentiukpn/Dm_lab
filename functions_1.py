@@ -39,39 +39,80 @@ def write_file(matrix: list) -> bool:
 #
 def relation_breakdown(matrix: list) -> list:
     '''
-    a
+    Break down a equivalent relation matrix into equivalence classes.
+
+    The input matrix represents a relation `R` on a finite set of elements
+    {0, 1, ..., n-1}, where `matrix[i][j] == 1` means "element i is related to element j".
+
+    This function finds all equivalence classes — groups of elements that are
+    mutually related (directly or through a chain of relations).
+
+    :param matrix: list, our equivalent matrix
+    :return: list, equivalent classes
+    >>> relation_breakdown([[1, 1, 0], [1, 1, 0], [0, 0, 1]])
+    [[0, 1], [2]]
+    >>> relation_breakdown([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    [[0], [1], [2]]
+    >>> relation_breakdown([[1, 1, 1],
+    ...                     [1, 1, 1],
+    ...                     [1, 1, 1]])
+    [[0, 1, 2]]
+    >>> relation_breakdown([[1, 0, 0, 0],
+    ...                     [0, 1, 1, 0],
+    ...                     [0, 1, 1, 0],
+    ...                     [0, 0, 0, 1]])
+    [[0], [1, 2], [3]]
+    >>> relation_breakdown([[1, 1, 0, 0],
+    ...                     [1, 1, 1, 0],
+    ...                     [0, 1, 1, 0],
+    ...                     [0, 0, 0, 1]])
+    [[0, 1, 2], [3]]
+    >>> big_matrix = [
+    ... [1,1,0,0,0,0,0,0,0,0],
+    ... [1,1,0,0,0,0,0,0,0,0],
+    ... [0,0,1,1,1,0,0,0,0,0],
+    ... [0,0,1,1,1,0,0,0,0,0],
+    ... [0,0,1,1,1,0,0,0,0,0],
+    ... [0,0,0,0,0,1,1,0,0,0],
+    ... [0,0,0,0,0,1,1,0,0,0],
+    ... [0,0,0,0,0,0,0,1,1,1],
+    ... [0,0,0,0,0,0,0,1,1,1],
+    ... [0,0,0,0,0,0,0,1,1,1]
+    ... ]
+    >>> relation_breakdown(big_matrix)
+    [[0, 1], [2, 3, 4], [5, 6], [7, 8, 9]]
     '''
     classes = []
     def add_to_classes(index: int, j_index: int, row: list, element: int):
         if classes == []:
             classes.append([index])
-            if index != j_index:
-                classes[0].append(j_index)
-        for m, n in enumerate(classes):
-            for o, p in enumerate(n):
-                #print(f"{classes}")
-                #print(f'{n=}, {p=}, {index=}, {j_index=}')
-                if index == p or j_index == p:
-                    break
+        for i, m in enumerate(classes): # check for existance in classes
+            if index in m and j_index in m:
+                continue
+            elif index in m and j_index not in m:
+                classes[i].append(j_index)
+                break
+            elif index not in m and j_index in m:
+                classes[i].append(index)
+                break
             else:
-                classes.append([index])
-                if index != j_index:
-                    classes[m].append(j_index)
-
+                if i + 1 == len(classes):
+                    if index != j_index:
+                        classes.append([j_index, index])
+                    else:
+                        classes.append([index])
+                    break
+                else:
+                    continue
 
     for index, row in enumerate(matrix):
         for j_index, element in enumerate(row):
             if element == 1:
                 add_to_classes(index, j_index, row, element)
+    return classes
 
-    #print(classes)
-
-# matr = [
-#     [1, 1, 0],
-#     [1, 1, 0],
-#     [0, 0, 1]
-# ]
-##############################################################
+#############################################################
 if __name__ == "__main__":
-    #relation_breakdown(matr)
+    import doctest
+    print(doctest.testmod())
     pass
