@@ -24,15 +24,62 @@ def write_file(matrix: list) -> bool:
     :param matrix: list, matrix that we need to write to file
     :return: bool, True if everything is ok, and False if invalid file
     '''
-    try:
-        with open('result.csv', 'w', encoding='utf-8') as file:
-            matrix = ["".join([str(j) for j in i]) for i in matrix] # convert matrix to list of rows
-            file.write("\n".join(matrix)) # write list converted to fully str
-    except FileNotFoundError:
-        return False
+    with open('result.csv', 'w', encoding='utf-8') as file:
+        matrix = ["".join([str(j) for j in i]) for i in matrix] # convert matrix to list of rows
+        file.write("\n".join(matrix)) # write list converted to fully str
     return True
 ##############################################################
+# 2
+def reflexive_closure(matrix: list) -> list:
+    '''
+    This function returns the reflexive closure of a binary relation
 
+    :param matrix: list[list[int]], square binary matrix representing the relation
+    :return: list[list[int]] | None, matrix of the reflexive closure or None if invalid input
+    '''
+    n = len(matrix)
+    for i in range(n):
+        matrix[i][i] = 1
+    return matrix
+
+def symmetric_closure(matrix: list) -> list:
+    '''
+    This function returns the symmetric closure of a binary relation
+
+    :param matrix: list[list[int]], square binary matrix representing the relation
+    :return: list[list[int]] | None, matrix of the symmetric closure or None if invalid input
+    '''
+    n = len(matrix)
+    for i in range(n):
+        for j in range(n):
+            if matrix[i][j] == 1:
+                matrix[j][i] = 1
+    return matrix
+##############################################################
+# 3
+def warshall(matrix: list) -> list:
+    '''
+    This function returns the transitive closure of a binary relation
+    using Warshall's algorithm.
+
+    :param matrix: list[list[int]], square binary matrix representing the relation
+    :return: list[list[int]], matrix of the transitive closure or None if invalid input
+    >>> warshall([[0, 1], [0, 0]])
+    [[0, 1], [0, 0]]
+
+    >>> warshall([[0, 1, 0],
+    ...           [0, 0, 1],
+    ...           [0, 0, 0]])
+    [[0, 1, 1], [0, 0, 1], [0, 0, 0]]
+    '''
+    w = matrix[:]
+    n = len(matrix)
+    for k in range(n):
+        for i in range(n):
+            if i != k and w[i][k] == 1:
+                for j in range(n):
+                    w[i][j] = w[i][j] or w[k][j]
+    return w
 ##############################################################
 # 4
 def relation_breakdown(relation: list | set[tuple], is_matrix: bool) -> list:
@@ -235,9 +282,42 @@ def is_transitive(relation: list | set[tuple], is_matrix: bool) -> bool:
                     if (a, d) not in relation:
                         return False
     return True
+#############################################################
+# 6
+def count_transitive(n: int) -> int:
+    '''
+    This function counts number of transitive relations
+    on set of n elements
+    !!! If n > 4 program will think very long time because of big amount of relations
+    :param n: int, number of elemets in set
+    :return: int, number of tranitive relations
+    >>> count_transitive(1)
+    2
+    >>> count_transitive(2)
+    13
+    >>> count_transitive(3)
+    171
+    >>> count_transitive(4)
+    3994
+    '''
+
+    total = 0
+    for num in range(pow(2, n*n)):
+        matrix = [[0]*n for _ in range(n)]
+        k = num
+        for i in range(n):
+            for j in range(n):
+                matrix[i][j] = k % 2
+                k //= 2
+        if is_transitive(matrix, True):
+            total += 1
+    return total
 
 
 #############################################################
 if __name__ == "__main__":
     import doctest
     print(doctest.testmod())
+
+
+#############################################################
