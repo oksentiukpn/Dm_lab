@@ -216,6 +216,8 @@ def is_transitive(relation: list | set[tuple], is_matrix: bool) -> bool:
     False
     >>> is_transitive({(0, 1), (1, 2), (0, 2), (2, 5), (0, 5), (1, 5)}, False)
     True
+    >>> is_transitive({(3, 4), (4, 5)}, False)
+    False
     '''
     if is_matrix: # for matrix
         matrix = relation
@@ -238,5 +240,4 @@ def is_transitive(relation: list | set[tuple], is_matrix: bool) -> bool:
 #############################################################
 if __name__ == "__main__":
     import doctest
-    write_file(read_file('file.csv'))
     print(doctest.testmod())
