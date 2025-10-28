@@ -1,4 +1,4 @@
----
+...
 
 # 🧮 Relation Properties Lab
 
@@ -9,7 +9,7 @@
 > A Python lab project for working with **binary relations** — compute reflexive, symmetric, and transitive closures,  
 > analyze equivalence classes, and check relation properties with ease ⚙️  
 
----
+...
 
 ## 📁 Project Overview
 
