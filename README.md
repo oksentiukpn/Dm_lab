@@ -2,7 +2,7 @@
 
 # 🧮 Relation Properties Lab
 
-[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.13+-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Doctest](https://img.shields.io/badge/tests-passed-green.svg?logo=pytest)](https://docs.python.org/3/library/doctest.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
