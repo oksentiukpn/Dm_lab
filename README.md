@@ -103,7 +103,7 @@ Doctest-based validation
 🧑‍💻 Author
 
 Олександр Оксентюк & Аліна Яцко
-🎓 Python developer & discrete math enthusiast
+🎓 Python developers & discrete math enthusiasts
 📅 2025
 
 
