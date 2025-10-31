@@ -301,16 +301,29 @@ def count_transitive(n: int) -> int:
     3994
     '''
 
-    total = 0
-    for num in range(pow(2, n*n)):
-        matrix = [[0]*n for _ in range(n)]
-        k = num
-        for i in range(n):
-            for j in range(n):
-                matrix[i][j] = k % 2
-                k //= 2
-        if is_transitive(matrix, True):
-            total += 1
+    def generate(matrix, i, j):
+        # Якщо заповнили всю матрицю — перевіряємо
+        if i == n:
+            if is_transitive(matrix, True):
+                return 1
+            else:
+                return 0
+        if j + 1 < n: # Рухаємся по рядках
+            next_i = i
+            next_j = j + 1
+        else:
+            next_i = i + 1
+            next_j = 0
+        # Варіант із 0
+        matrix[i][j] = 0
+        total = generate(matrix, next_i, next_j)
+        # Варіант із 1
+        matrix[i][j] = 1
+        total += generate(matrix, next_i, next_j)
+        return total
+    matrix = [[0] * n for _ in range(n)]
+    total = generate(matrix, 0, 0)
+
     return total
 
 
