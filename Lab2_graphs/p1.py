@@ -24,7 +24,7 @@ def read_incidence_matrix(filename: str) -> list[list[int]]:
     :param str filename: path to file
     :returns list[list[int]]: the incidence matrix of a given graph
 
-    #>>> read_incidence_matrix('input.dot')
+    >>> read_incidence_matrix('input.dot')
     """
     vertices = set()
     lines = read_file(filename)
@@ -54,7 +54,6 @@ def read_adjacency_matrix(filename: str) -> list[list[int]]:
     """
     vertices = set()
     lines = read_file(filename)
-    print(lines)
     for a, b in lines:
         vertices.add(a)
         vertices.add(b)
