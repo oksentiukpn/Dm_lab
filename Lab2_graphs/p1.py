@@ -24,7 +24,7 @@ def read_incidence_matrix(filename: str) -> list[list[int]]:
     :param str filename: path to file
     :returns list[list[int]]: the incidence matrix of a given graph
 
-    >>> read_incidence_matrix('input.dot')
+    #>>> read_incidence_matrix('input.dot')
     """
     vertices = set()
     lines = read_file(filename)
@@ -65,7 +65,7 @@ def read_adjacency_matrix(filename: str) -> list[list[int]]:
         matrix[a][b] += 1
     return matrix
 
-def read_adjacency_dict(filename: str) -> dict[int, list[int]]:
+def read_adjacency_dict(filename: str) -> dict[any, list[int]]:
     """
     :param str filename: path to file
     :returns dict[int, list[int]]: the adjacency dict of a given graph
@@ -81,6 +81,52 @@ def read_adjacency_dict(filename: str) -> dict[int, list[int]]:
         result[a].append(b)
 
     return result
+#############################################################
+# Task 2
+
+def recursive_adjacency_dict_dfs(graph: dict, start: int, visited: list = None) -> list[int]:
+    """
+    :param dict[int, list[int]] graph: the adjacency list of a given graph
+    :param int start: start vertex of search
+    :returns list[int]: the dfs traversal of the graph
+    >>> recursive_adjacency_dict_dfs({0: [1, 2], 1: [0, 2], 2: [0, 1]}, 0)
+    [0, 1, 2]
+    >>> recursive_adjacency_dict_dfs({0: [1, 2], 1: [0, 2, 3], 2: [0, 1], 3: []}, 0)
+    [0, 1, 2, 3]
+    """
+    if visited is None:
+        visited = []
+    # if point is not in visited
+    if start not in visited:
+        visited.append(start)
+        # finding all links
+        links = graph.get(start, [])
+
+        for link in links: # repeat for all links
+            recursive_adjacency_dict_dfs(graph, link, visited)
+    return visited
+
+def recursive_adjacency_matrix_dfs(graph: list, start: int, visited: list = None) -> list[int]:
+    """
+    :param list[list[int]] graph: the adjacency matrix of a given graph
+    :param int start: start vertex of search
+    :returns list[int]: the dfs traversal of the graph
+    >>> recursive_adjacency_matrix_dfs([[0, 1, 1], [1, 0, 1], [1, 1, 0]], 0)
+    [0, 1, 2]
+    >>> recursive_adjacency_matrix_dfs([[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 0], [0, 0, 0, 0]], 0)
+    [0, 1, 2, 3]
+    """
+    if visited is None:
+        visited = []
+    if start not in visited:
+        visited.append(start)
+
+    for index, value in enumerate(graph[start]):
+        if value: # if value >= 1 than its true and at least 1 link connected
+            if index not in visited:
+                recursive_adjacency_matrix_dfs(graph, index, visited)
+
+    return visited
 #############################################################
 
 
