@@ -128,7 +128,75 @@ def recursive_adjacency_matrix_dfs(graph: list, start: int, visited: list = None
 
     return visited
 #############################################################
+# Task 3
+def iterative_adjacency_dict_dfs(graph: dict[int, list[int]], start: int) -> list[int]:
+    """
+    :param dict[int, list[int]] graph: the adjacency list of a given graph
+    :param int start: start vertex of search
+    :returns list[int]: the dfs traversal of the graph
+    >>> iterative_adjacency_dict_dfs({0: [1, 2], 1: [0, 2], 2: [0, 1]}, 0)
+    [0, 1, 2]
+    >>> iterative_adjacency_dict_dfs({0: [1, 2], 1: [0, 2, 3], 2: [0, 1], 3: []}, 0)
+    [0, 1, 2, 3]
+    """
+    visited = []
+    arr = [start]
+    while arr:
+        ver = arr.pop(0) # taking first elm from stack
 
+        if ver not in visited: # proccesing this elm
+            visited.append(ver)
+
+            links = graph.get(ver, [])
+
+            for link in links: # adding links from this elm to stack for future processing
+                if link not in visited:
+                    arr.append(link)
+
+    return visited
+
+
+# def iterative_adjacency_matrix_dfs(graph: list[list[int]], start: int) -> list[int]:
+#     """
+#     :param list[list[int]] graph: the adjacency matrix of a given graph
+#     :param int start: start vertex of search
+#     :returns list[int]: the dfs traversal of the graph
+#     >>> iterative_adjacency_matrix_dfs([[0, 1, 1], [1, 0, 1], [1, 1, 0]], 0)
+#     [0, 1, 2]
+#     >>> iterative_adjacency_matrix_dfs([[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 0], [0, 0, 0, 0]], 0)
+#     [0, 1, 2, 3]
+#     """
+#     pass
+
+
+
+
+# def iterative_adjacency_dict_bfs(graph: dict[int, list[int]], start: int) -> list[int]:
+#     """
+#     :param dict[int, list[int]] graph: the adjacency list of a given graph
+#     :param int start: start vertex of search
+#     :returns list[int]: the bfs traversal of the graph
+#     >>> iterative_adjacency_dict_bfs({0: [1, 2], 1: [0, 2], 2: [0, 1]}, 0)
+#     [0, 1, 2]
+#     >>> iterative_adjacency_dict_bfs({0: [1, 2], 1: [0, 2, 3], 2: [0, 1], 3: []}, 0)
+#     [0, 1, 2, 3]
+#     """
+#     pass
+
+
+# def iterative_adjacency_matrix_bfs(graph: list[list[int]], start: int) -> list[int]:
+#     """
+#     :param list[list[int]] graph: the adjacency matrix of a given graph
+#     :param int start: start vertex of search
+#     :returns list[int]: the bfs traversal of the graph
+#     >>> iterative_adjacency_matrix_bfs([[0, 1, 1], [1, 0, 1], [1, 1, 0]], 0)
+#     [0, 1, 2]
+#     >>> iterative_adjacency_matrix_bfs([[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 0], [0, 0, 0, 0]], 0)
+#     [0, 1, 2, 3]
+#     """
+#     pass
+
+#############################################################
 
 if __name__ == "__main__":
     import doctest
