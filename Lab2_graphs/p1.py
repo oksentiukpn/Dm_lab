@@ -152,49 +152,81 @@ def iterative_adjacency_dict_dfs(graph: dict[int, list[int]], start: int) -> lis
             for link in links: # adding links from this elm to stack for future processing
                 if link not in visited:
                     arr.append(link)
+    return visited
+
+
+def iterative_adjacency_matrix_dfs(graph: list[list[int]], start: int) -> list[int]:
+    """
+    :param list[list[int]] graph: the adjacency matrix of a given graph
+    :param int start: start vertex of search
+    :returns list[int]: the dfs traversal of the graph
+    >>> iterative_adjacency_matrix_dfs([[0, 1, 1], [1, 0, 1], [1, 1, 0]], 0)
+    [0, 1, 2]
+    >>> iterative_adjacency_matrix_dfs([[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 0], [0, 0, 0, 0]], 0)
+    [0, 1, 2, 3]
+    """
+    visited = []
+    arr = [start]
+    while arr:
+        v = arr.pop() #taking last elm from arr, Last In first out
+        if v not in visited:
+            visited.append(v)
+            row = graph[v]
+            for i in range(len(row) - 1, -1, -1):
+                if row[i] == 1 and i not in visited:
+                    arr.append(i)
 
     return visited
 
 
-# def iterative_adjacency_matrix_dfs(graph: list[list[int]], start: int) -> list[int]:
-#     """
-#     :param list[list[int]] graph: the adjacency matrix of a given graph
-#     :param int start: start vertex of search
-#     :returns list[int]: the dfs traversal of the graph
-#     >>> iterative_adjacency_matrix_dfs([[0, 1, 1], [1, 0, 1], [1, 1, 0]], 0)
-#     [0, 1, 2]
-#     >>> iterative_adjacency_matrix_dfs([[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 0], [0, 0, 0, 0]], 0)
-#     [0, 1, 2, 3]
-#     """
-#     pass
+
+def iterative_adjacency_dict_bfs(graph: dict[int, list[int]], start: int) -> list[int]:
+    """
+    :param dict[int, list[int]] graph: the adjacency list of a given graph
+    :param int start: start vertex of search
+    :returns list[int]: the bfs traversal of the graph
+    >>> iterative_adjacency_dict_bfs({0: [1, 2], 1: [0, 2], 2: [0, 1]}, 0)
+    [0, 1, 2]
+    >>> iterative_adjacency_dict_bfs({0: [1, 2], 1: [0, 2, 3], 2: [0, 1], 3: []}, 0)
+    [0, 1, 2, 3]
+    """
+    visited = []
+    arr = [start]
+    while arr:
+        v = arr.pop(0) # FIFO
+        if v not in visited:
+            visited.append(v)
+
+        for e in graph.get(v, []):
+            if e not in visited:
+                visited.append(e)
+                arr.append(e)
+
+    return visited
 
 
 
-
-# def iterative_adjacency_dict_bfs(graph: dict[int, list[int]], start: int) -> list[int]:
-#     """
-#     :param dict[int, list[int]] graph: the adjacency list of a given graph
-#     :param int start: start vertex of search
-#     :returns list[int]: the bfs traversal of the graph
-#     >>> iterative_adjacency_dict_bfs({0: [1, 2], 1: [0, 2], 2: [0, 1]}, 0)
-#     [0, 1, 2]
-#     >>> iterative_adjacency_dict_bfs({0: [1, 2], 1: [0, 2, 3], 2: [0, 1], 3: []}, 0)
-#     [0, 1, 2, 3]
-#     """
-#     pass
-
-
-# def iterative_adjacency_matrix_bfs(graph: list[list[int]], start: int) -> list[int]:
-#     """
-#     :param list[list[int]] graph: the adjacency matrix of a given graph
-#     :param int start: start vertex of search
-#     :returns list[int]: the bfs traversal of the graph
-#     >>> iterative_adjacency_matrix_bfs([[0, 1, 1], [1, 0, 1], [1, 1, 0]], 0)
-#     [0, 1, 2]
-#     >>> iterative_adjacency_matrix_bfs([[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 0], [0, 0, 0, 0]], 0)
-#     [0, 1, 2, 3]
-#     """
-#     pass
+def iterative_adjacency_matrix_bfs(graph: list[list[int]], start: int) -> list[int]:
+    """
+    :param list[list[int]] graph: the adjacency matrix of a given graph
+    :param int start: start vertex of search
+    :returns list[int]: the bfs traversal of the graph
+    >>> iterative_adjacency_matrix_bfs([[0, 1, 1], [1, 0, 1], [1, 1, 0]], 0)
+    [0, 1, 2]
+    >>> iterative_adjacency_matrix_bfs([[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 0], [0, 0, 0, 0]], 0)
+    [0, 1, 2, 3]
+    """
+    visited = []
+    arr = [start]
+    while arr:
+        v = arr.pop(0) # FIFO
+        if v not in visited:
+            visited.append(v)
+        for i, e in enumerate(graph[v]):
+            if e == 1 and i not in visited:
+                visited.append(i)
+                arr.append(i)
+    return visited
 
 #############################################################
 
