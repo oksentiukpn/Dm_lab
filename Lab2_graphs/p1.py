@@ -142,14 +142,12 @@ def iterative_adjacency_dict_dfs(graph: dict[int, list[int]], start: int) -> lis
     visited = []
     arr = [start]
     while arr:
-        ver = arr.pop(0) # taking first elm from stack
+        ver = arr.pop() # taking first elm from stack
 
         if ver not in visited: # proccesing this elm
             visited.append(ver)
 
-            links = graph.get(ver, [])
-
-            for link in links: # adding links from this elm to stack for future processing
+            for link in range(len(graph.get(ver, [])), -1, -1): # adding links to stack for future
                 if link not in visited:
                     arr.append(link)
     return visited
